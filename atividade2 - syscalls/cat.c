@@ -23,6 +23,7 @@ int main(int argc, char *argv[]){
 
     while ((rd = read(arquivo, buf, 1024)) !=0)
         write(1, buf, rd);
+        printf("\n");
 
     close(arquivo);
 
