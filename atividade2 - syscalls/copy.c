@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <sys/syscall.h>
+#include <fcntl.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 
 int main(int argc, char *argv[]){
 //  ./meuprograma arquivo1.txt arquivo2.txt => 3 argc
@@ -15,7 +18,17 @@ int main(int argc, char *argv[]){
     const char *arqalvo = argv[2];
 
     int fonte = open(arqfonte, O_RDONLY);
-    int alvo = open(arqalvo, O_WRONLY | O_CREAT, S_IRUSR, S_IWUSR);
+    if (fonte == -1){
+        perror("Erro ao abrir o arquivo de origem");
+        return 1;
+    }
+
+    int alvo = open(arqalvo, O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR);
+    if (alvo == -1){
+        perror("Erro ao abrir o arquivo de destino");
+        close(fonte);
+        return 1;
+    }
 
     char buf[1024];
     int tamanholido;

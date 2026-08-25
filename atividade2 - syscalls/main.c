@@ -1,6 +1,8 @@
 #include <stdio.h> //metodos padroes printf, scanf...
 #include <unistd.h> // close, read, write, unlink...
-#include <fcntl.h> //open e constantes O_RDONLY, O_WRONLY, etc.
+#include <fcntl.h> //open e constantes O_RDONLY, O_WRONLY, O_CREAT.
+#include <sys/types.h>  // Tipos de dados de sistema (boa prática para usar com stat/fcntl)
+#include <sys/stat.h>   // Necessário para S_IRUSR, S_IWUSR
 #include <sys/syscall.h>
 #include <sys/stat.h> // Onde fica a syscall mkdir, stat
 #include <dirent.h> // opendir e readdir (usado para implementar ls)
